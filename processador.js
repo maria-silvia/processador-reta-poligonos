@@ -1,3 +1,11 @@
+function load_reta_inicial () {
+  alert("You are visiting the home page of \n" +
+      "Pete's Pickled Peppers \n" + "WELCOME!!!");
+  
+   var canvas = document.getElementById("canvas");
+
+}
+
 const processadorRetas = {
     myProperty: 'someValue',
     // object literals can contain properties and methods.
