@@ -19,8 +19,8 @@ function updateCanvas() {
 }
 
 // ====================  LINE MOVEMENT =========================================
-// called by mousedown
-function onMouseDown(event) {
+// called by left mousedown
+function onLeftClick(event) {
   SELECTED_LINE = getLineUnderCursor(event);
   if (SELECTED_LINE) {
     CANVAS.style.cursor = "move";
@@ -40,35 +40,35 @@ function onLineDrop() {
   SELECTED_LINE = null;
   document.removeEventListener("mouseup", onLineDrop, true);
   document.removeEventListener("mousemove", onLineMove, true);
+  updateCanvas();
 }
 // ==================== END of LINE MOVEMENT ===================================
 
 // ==================  DIVIDE LINE IN 2 ========================================
 var LINE_DIV1, LINE_DIV2;
 
-// called by contextmenu
+// called by right mousedown
 function onRightClick(event) {
-  event.preventDefault();
   SELECTED_LINE = getLineUnderCursor(event);
-
   if (SELECTED_LINE) {
+    CANVAS.style.cursor = "move";
     const { offsetX: mouse_x, offsetY: mouse_y } = event;
 
     // new line de x0,y0 para mouse
     LINE_DIV1 = new Line(SELECTED_LINE.x0, SELECTED_LINE.y0, mouse_x, mouse_y);
-    LINE_DIV1.setCursorOffset(event);
     LINES.push(LINE_DIV1);
 
     // new line de mouse para x1, y1
     LINE_DIV2 = new Line(mouse_x, mouse_y, SELECTED_LINE.x1, SELECTED_LINE.y1);
-    LINE_DIV2.setCursorOffset(event);
     LINES.push(LINE_DIV2);
 
-    // remover line original
+    // remove line original
     LINES = LINES.filter((line) => {
       return line.path_obj != SELECTED_LINE.path_obj;
     });
 
+    LINE_DIV1.setCursorOffset(event);
+    LINE_DIV2.setCursorOffset(event);
     document.addEventListener("mousemove", onLineBreaking, true);
     document.addEventListener("mouseup", onLineBreakingStop, true);
   }
@@ -84,8 +84,10 @@ function onLineBreaking(event) {
 }
 // called by a mouseup after contextmenu
 function onLineBreakingStop() {
+  SELECTED_LINE = null;
   document.removeEventListener("mouseup", onLineBreakingStop, true);
   document.removeEventListener("mousemove", onLineBreaking, true);
+  updateCanvas();
 }
 // ==================  END of DIVIDE LINE IN 2 =================================
 
@@ -140,7 +142,7 @@ function generatePolygon(event) {
     let y0 = Ycenter + lineSize * Math.sin(((i - 1) * 2 * Math.PI) / N);
     let x1 = Xcenter + lineSize * Math.cos((i * 2 * Math.PI) / N);
     let y1 = Ycenter + lineSize * Math.sin((i * 2 * Math.PI) / N);
-    const lado = new Line(x0, y0, x1, y1);
+    let lado = new Line(x0, y0, x1, y1);
     LINES.push(lado);
   }
   updateCanvas();
