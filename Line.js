@@ -14,6 +14,10 @@ class Line {
     ctx.stroke(path);
   }
 
+  mouseMatch(evt) {
+    return CTX.isPointInStroke(this.path_obj, evt.offsetX, evt.offsetY);
+  }
+
   setGrabberOffset(event) {
     const { offsetX: mouse_x, offsetY: mouse_y } = event;
     // distancia entre cursor e o INICIO da linha
@@ -42,5 +46,10 @@ class Line {
       this.x0 = mouse_x - this.dist_from_x0;
       this.y0 = mouse_y - this.dist_from_y0;
     }
+  }
+
+  paint(color) {
+    CTX.strokeStyle = color;
+    CTX.stroke(this.path_obj);
   }
 }
