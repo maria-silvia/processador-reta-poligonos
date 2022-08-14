@@ -3,6 +3,7 @@ body {
     margin: 0px;
     font-family: 'Crimson', Georgia, Times, serif;
     letter-spacing: 2px;
+    background-color: antiquewhite;
 }
 
 /* ------------- BEGIN MAIN STYLING */
@@ -15,6 +16,7 @@ main {
 }
 main h1 {
     text-align: center;
+    color: rgba(148, 55, 171, 0.75);
 }
 p {
     max-width: 75ch;

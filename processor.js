@@ -18,26 +18,68 @@ function updateCanvas() {
   }
 }
 
+// ====================  LINE MOVEMENT =========================================
 function onMouseDown(event) {
   SELECTED_LINE = getLineUnderCursor(event);
   if (SELECTED_LINE) {
     CANVAS.style.cursor = "move";
     SELECTED_LINE.setCursorOffset(event);
     document.addEventListener("mousemove", onLineMove, true);
-    document.addEventListener("mouseup", dropper, true);
+    document.addEventListener("mouseup", onLineDrop, true);
   }
 }
-
 function onLineMove(event) {
   SELECTED_LINE.updateCoordenates(event);
   updateCanvas();
 }
-
-function dropper(event) {
-  document.removeEventListener("mouseup", dropper, true);
+function onLineDrop() {
+  document.removeEventListener("mouseup", onLineDrop, true);
   document.removeEventListener("mousemove", onLineMove, true);
   CANVAS.style.cursor = "pointer";
 }
+// ==================== END of LINE MOVEMENT ===================================
+
+// ==================  DIVIDE LINE IN 2 ========================================
+var LINE_DIV1, LINE_DIV2;
+
+function onRightClick(event) {
+  event.preventDefault();
+  SELECTED_LINE = getLineUnderCursor(event);
+
+  if (SELECTED_LINE) {
+    const { offsetX: mouse_x, offsetY: mouse_y } = event;
+
+    // new line de x0,y0 para mouse
+    LINE_DIV1 = new Line(SELECTED_LINE.x0, SELECTED_LINE.y0, mouse_x, mouse_y);
+    LINE_DIV1.setCursorOffset(event);
+    LINES.push(LINE_DIV1);
+
+    // new line de mouse para x1, y1
+    LINE_DIV2 = new Line(mouse_x, mouse_y, SELECTED_LINE.x1, SELECTED_LINE.y1);
+    LINE_DIV2.setCursorOffset(event);
+    LINES.push(LINE_DIV2);
+
+    // remover line original
+    LINES = LINES.filter((line) => {
+      return line.path_obj != SELECTED_LINE.path_obj;
+    });
+
+    document.addEventListener("mousemove", onLineBreaking, true);
+    document.addEventListener("mouseup", onLineBreakingStop, true);
+  }
+}
+
+function onLineBreaking(event) {
+  LINE_DIV1.updateCoordenates(event);
+  LINE_DIV2.updateCoordenates(event);
+  updateCanvas();
+}
+
+function onLineBreakingStop() {
+  document.removeEventListener("mouseup", onLineBreakingStop, true);
+  document.removeEventListener("mousemove", onLineBreaking, true);
+}
+// ==================  END of DIVIDE LINE IN 2 =================================
 
 function getLineUnderCursor(event) {
   for (let i = 0; i < LINES.length; i++) {
