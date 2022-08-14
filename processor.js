@@ -23,7 +23,6 @@ function updateCanvas() {
 function onLeftClick(event) {
   SELECTED_LINE = getLineUnderCursor(event);
   if (SELECTED_LINE) {
-    CANVAS.style.cursor = "move";
     SELECTED_LINE.setCursorOffset(event);
     document.addEventListener("mousemove", onLineMove, true);
     document.addEventListener("mouseup", onLineDrop, true);
@@ -36,7 +35,6 @@ function onLineMove(event) {
 }
 // called by a mouseup after mousedown
 function onLineDrop() {
-  CANVAS.style.cursor = "pointer";
   SELECTED_LINE = null;
   document.removeEventListener("mouseup", onLineDrop, true);
   document.removeEventListener("mousemove", onLineMove, true);
@@ -51,7 +49,6 @@ var LINE_DIV1, LINE_DIV2;
 function onRightClick(event) {
   SELECTED_LINE = getLineUnderCursor(event);
   if (SELECTED_LINE) {
-    CANVAS.style.cursor = "move";
     const { offsetX: mouse_x, offsetY: mouse_y } = event;
 
     // new line de x0,y0 para mouse
@@ -92,13 +89,12 @@ function onLineBreakingStop() {
 // ==================  END of DIVIDE LINE IN 2 =================================
 
 // called by mousemoves
+// função para highlight da reta sob o mouse
+// e auxiliar dos clicks
 function getLineUnderCursor(event) {
   for (let i = 0; i < LINES.length; i++) {
     if (LINES[i].mouseMatch(event)) {
       LINES[i].paint("blue");
-      if (!SELECTED_LINE) {
-        CANVAS.style.cursor = "pointer";
-      }
       return LINES[i];
     } else {
       LINES[i].paint(DEFAULT_COLOR);

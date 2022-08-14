@@ -18,3 +18,11 @@ document.getElementById("generateBtn").onclick = generatePolygon;
 document
   .getElementById("canvas")
   .addEventListener("contextmenu", (e) => e.preventDefault());
+
+// -- cursor style -----
+document.getElementById("canvas").addEventListener("mousedown", () => {
+  CANVAS.style.cursor = "move";
+});
+document.getElementById("canvas").addEventListener("mouseup", () => {
+  CANVAS.style.cursor = "pointer";
+});
