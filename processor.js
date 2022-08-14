@@ -33,9 +33,10 @@ function onLineMove(event) {
   updateCanvas();
 }
 function onLineDrop() {
+  CANVAS.style.cursor = "pointer";
+  SELECTED_LINE = null;
   document.removeEventListener("mouseup", onLineDrop, true);
   document.removeEventListener("mousemove", onLineMove, true);
-  CANVAS.style.cursor = "pointer";
 }
 // ==================== END of LINE MOVEMENT ===================================
 
@@ -85,13 +86,12 @@ function getLineUnderCursor(event) {
   for (let i = 0; i < LINES.length; i++) {
     if (LINES[i].mouseMatch(event)) {
       LINES[i].paint("blue");
-      if (CANVAS.style.cursor != "move") {
+      if (!SELECTED_LINE) {
         CANVAS.style.cursor = "pointer";
       }
       return LINES[i];
     } else {
       LINES[i].paint(DEFAULT_COLOR);
-      CANVAS.style.cursor = "initial";
     }
   }
   return null;

@@ -15,7 +15,10 @@ class Line {
   }
 
   mouseMatch(evt) {
-    return CTX.isPointInStroke(this.path_obj, evt.offsetX, evt.offsetY);
+    if (this.path_obj) {
+      return CTX.isPointInStroke(this.path_obj, evt.offsetX, evt.offsetY);
+    }
+    return null;
   }
 
   setCursorOffset(event) {
@@ -49,7 +52,9 @@ class Line {
   }
 
   paint(color) {
-    CTX.strokeStyle = color;
-    CTX.stroke(this.path_obj);
+    if (this.path_obj) {
+      CTX.strokeStyle = color;
+      CTX.stroke(this.path_obj);
+    }
   }
 }
