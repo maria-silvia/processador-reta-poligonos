@@ -4,6 +4,7 @@ class Line {
     this.y0 = y0;
     this.x1 = x1;
     this.y1 = y1;
+    this.color = DEFAULT_COLOR;
   }
 
   draw() {
@@ -11,6 +12,7 @@ class Line {
     path.moveTo(this.x0, this.y0);
     path.lineTo(this.x1, this.y1);
     this.path_obj = path;
+    CTX.strokeStyle = this.color;
     CTX.stroke(path);
   }
 
@@ -52,8 +54,9 @@ class Line {
   }
 
   paint(color) {
+    this.color = color; // set to future redrawings
     if (this.path_obj) {
-      CTX.strokeStyle = color;
+      CTX.strokeStyle = this.color; // color now
       CTX.stroke(this.path_obj);
     }
   }

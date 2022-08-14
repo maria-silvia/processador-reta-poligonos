@@ -72,7 +72,9 @@ function onRightClick(event) {
 
 function onLineBreaking(event) {
   LINE_DIV1.updateCoordenates(event);
+  LINE_DIV1.paint("blue");
   LINE_DIV2.updateCoordenates(event);
+  LINE_DIV2.paint("blue");
   updateCanvas();
 }
 
@@ -100,7 +102,6 @@ function getLineUnderCursor(event) {
 function initCanvas() {
   CANVAS = document.getElementById("canvas");
   CTX = CANVAS.getContext("2d");
-  CTX.strokeStyle = DEFAULT_COLOR;
   CTX.lineWidth = 5;
   CTX.lineCap = "round";
 }
