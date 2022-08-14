@@ -9,3 +9,11 @@ Trabalho 3 de CI1010 - Programação Web
 - (30 pontos) Ao clicar com o botão da direita do mouse, os dois cantos da reta ficam fixos e a reta é dividida em duas. Um extremo em cada ponto fixo e um extremo no local do mouse.
 
 - (40 pontos) O aplicativo deve solicitar um número (entre 3 e 8) e gerar um polígono com aquele número de lados. A cada segmento de reta, as duas ações descritas acima devem operar. Por exemplo, é possível tranformar um triângulo em quadrado ao pressionar com o botão da direita em uma das retas do triângulo.
+
+# to do
+
+- [ ] desenhar circles nas edges
+- [ ] on hover, destacar edges
+- [ ] tratar limites do canvas
+- [ ] impedir de linha ficar muito pequenininha
+- [ ] fazer um alert mais bonito
