@@ -102,6 +102,7 @@ function initCanvas() {
   CTX = CANVAS.getContext("2d");
   CTX.strokeStyle = DEFAULT_COLOR;
   CTX.lineWidth = 5;
+  CTX.lineCap = "round";
 }
 
 function addInitialLine() {
