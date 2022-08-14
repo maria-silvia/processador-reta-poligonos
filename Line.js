@@ -31,17 +31,16 @@ class Line {
       Math.abs(this.dist_from_x1) < EDGE_RADIUS &&
       Math.abs(this.dist_from_y1) < EDGE_RADIUS;
   }
-    
-	updateCoordenates(event) {
+
+  updateCoordenates(event) {
     const { offsetX: mouse_x, offsetY: mouse_y } = event;
     if (!this.grabbedOnEdge0) {
       this.x1 = mouse_x - this.dist_from_x1;
       this.y1 = mouse_y - this.dist_from_y1;
     }
     if (!this.grabbedOnEdge1) {
-    this.x0 = mouse_x - this.dist_from_x0;
-    this.y0 = mouse_y - this.dist_from_y0;
+      this.x0 = mouse_x - this.dist_from_x0;
+      this.y0 = mouse_y - this.dist_from_y0;
     }
-	}
+  }
 }
-

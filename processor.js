@@ -1,18 +1,13 @@
-var EDGE_RADIUS = 10;
 var CANVAS;
 var CTX;
 var LINES = [];
 var DEFAULT_COLOR = "rgba(148, 55, 171)";
+var EDGE_RADIUS = 10;
+var SELECTED_LINE = null;
 
 function load() {
-  CANVAS = document.getElementById("canvas");
-  CTX = CANVAS.getContext("2d");
-  CTX.strokeStyle = DEFAULT_COLOR;
-  CTX.lineWidth = 5;
-
-  const middle_h = canvas.height / 2;
-  const middle_w = canvas.width / 2;
-  LINES.push(new Line(middle_w, middle_h - 100, middle_w, middle_h + 100));
+  initCanvas();
+  addInitialLine();
   updateCanvas();
 }
 
@@ -23,21 +18,21 @@ function updateCanvas() {
   }
 }
 
-var SELECTED_LINE = null;
-
 function onMouseDown(event) {
   SELECTED_LINE = getSelectedLine(event);
   if (SELECTED_LINE) {
-    SELECTED_LINE.setGrabberOffset(event);
     CANVAS.style.cursor = "move";
+    SELECTED_LINE.setGrabberOffset(event);
     document.addEventListener("mousemove", onLineMove, true);
     document.addEventListener("mouseup", dropper, true);
   }
 }
+
 function onLineMove(event) {
   SELECTED_LINE.updateCoordenates(event);
   updateCanvas();
 }
+
 function dropper(event) {
   document.removeEventListener("mouseup", dropper, true);
   document.removeEventListener("mousemove", onLineMove, true);
@@ -64,4 +59,17 @@ function showGrabbableArea(event) {
     CANVAS.style.cursor = "initial";
   }
   CTX.stroke(LINES[0].path_obj);
+}
+
+function initCanvas() {
+  CANVAS = document.getElementById("canvas");
+  CTX = CANVAS.getContext("2d");
+  CTX.strokeStyle = DEFAULT_COLOR;
+  CTX.lineWidth = 5;
+}
+
+function addInitialLine() {
+  const middle_h = CANVAS.height / 2;
+  const middle_w = CANVAS.width / 2;
+  LINES.push(new Line(middle_w, middle_h - 100, middle_w, middle_h + 100));
 }
