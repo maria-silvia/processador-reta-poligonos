@@ -1,30 +1,38 @@
-function load_reta_inicial() {
-  var canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "rgba(148, 55, 171, 0.40)";
-  var width = canvas.width;
-  var height = canvas.height;
+class Line {
+  constructor(x0, y0, x1, y1) {
+    this.x0 = x0;
+    this.y0 = y0;
+    this.x1 = x1;
+    this.y1 = y1;
+  }
 
-  let middle_h = height/2
-  let middle_w = width/2
-  
-  ctx.beginPath();
-  let lineSize = 100
-  ctx.moveTo(middle_w, middle_h-lineSize);
-  ctx.lineTo(middle_w, middle_h+lineSize);
-  ctx.stroke()
+  draw(ctx) {
+    const path = new Path2D();
+    path.moveTo(this.x0, this.y0);
+    path.lineTo(this.x1, this.y1);
+    this.path_obj = path;
+    ctx.stroke(path);
+  }
+
+  setGrabberOffset(event) {
+    const { offsetX: mouse_x, offsetY: mouse_y } = event;
+
+    // distancia entre cursor e o INICIO da linha
+    this.dist_from_x0 = mouse_x - this.x0;
+    this.dist_from_y0 = mouse_y - this.y0;
+
+    // distancia entre cursor e o FIM da linha
+    this.dist_from_x1 = mouse_x - this.x1;
+    this.dist_from_y1 = mouse_y - this.y1;
+  }
+    
+	updateCoordenates(event) {
+    const { offsetX: mouse_x, offsetY: mouse_y } = event;
+
+		this.x0 = mouse_x - this.dist_from_x0
+		this.y0 = mouse_y - this.dist_from_y0
+		this.x1 = mouse_x - this.dist_from_x1
+		this.y1 = mouse_y - this.dist_from_y1
+	}
 }
 
-const processadorRetas = {
-  myProperty: "someValue",
-  // object literals can contain properties and methods.
-  // e.g we can define a further object for module configuration:
-  myConfig: {
-    useCaching: true,
-    language: "en",
-  },
-
-  moverReta() {
-    console.log("Where is Paul Irish debugging today?");
-  },
-};

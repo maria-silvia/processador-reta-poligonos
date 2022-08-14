@@ -3,26 +3,24 @@
   <head>
     <meta name="author" content="Maria Ruy" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="styles.css" />
-    <script type="text/javascript" src="processador.js">
-    </script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap"
-      rel="stylesheet"
-    />
+    <script type="text/javascript" src="processador.js"></script>
+    <script type="text/javascript" src="script.js"></script>
 
     <title>Processador de retas e polígonos</title>
   </head>
 
-  <body onload="load_reta_inicial();">
+  <body onload="load();">
     <main>
       <h1>Processador de retas e polígonos</h1>
-      <canvas id="canvas" width="700px" height="400px"></canvas>
+      <canvas
+        id="canvas"
+        width="700px"
+        height="400px"
+      ></canvas>
     </main>
+    <script type="text/javascript" src="event_registration.js"></script>
   </body>
 </html>
