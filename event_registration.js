@@ -8,3 +8,6 @@ document
   .addEventListener("mousemove", getLineUnderCursor);
 
 document.getElementById("canvas").addEventListener("contextmenu", onRightClick);
+
+document.getElementById("nPolygon").onchange = validatePolygonNumber;
+document.getElementById("generateBtn").onclick = generatePolygon;

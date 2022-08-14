@@ -111,3 +111,23 @@ function addInitialLine() {
   const middle_w = CANVAS.width / 2;
   LINES.push(new Line(middle_w, middle_h - 100, middle_w, middle_h + 100));
 }
+
+function validatePolygonNumber() {
+  const v = document.getElementById("nPolygon").value;
+  if (!v) {
+    alert("Entre a quantidade de lados!");
+    return false;
+  }
+  if (v < 3 || v > 8) {
+    alert("Na não!\n" + v + " não é válido.\nSó gero polígonos de 3 a 8 lados");
+    return false;
+  }
+  return true;
+}
+
+function generatePolygon() {
+  if (!validatePolygonNumber()) {
+    return;
+  }
+  const N = document.getElementById("nPolygon").value;
+}
