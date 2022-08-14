@@ -14,7 +14,7 @@ function load() {
 function updateCanvas() {
   CTX.clearRect(0, 0, CANVAS.width, CANVAS.height);
   for (let i = 0; i < LINES.length; i++) {
-    LINES[i].draw(CTX);
+    LINES[i].draw();
   }
 }
 
@@ -22,7 +22,7 @@ function onMouseDown(event) {
   SELECTED_LINE = getLineUnderCursor(event);
   if (SELECTED_LINE) {
     CANVAS.style.cursor = "move";
-    SELECTED_LINE.setGrabberOffset(event);
+    SELECTED_LINE.setCursorOffset(event);
     document.addEventListener("mousemove", onLineMove, true);
     document.addEventListener("mouseup", dropper, true);
   }
