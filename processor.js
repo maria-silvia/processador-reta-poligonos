@@ -7,7 +7,7 @@ var SELECTED_LINE = null;
 
 function load() {
   initCanvas();
-  addInitialLine();
+  LINES.push(new Line(100, 100, 100, 300));
   updateCanvas();
 }
 
@@ -19,6 +19,7 @@ function updateCanvas() {
 }
 
 // ====================  LINE MOVEMENT =========================================
+// called by mousedown
 function onMouseDown(event) {
   SELECTED_LINE = getLineUnderCursor(event);
   if (SELECTED_LINE) {
@@ -28,10 +29,12 @@ function onMouseDown(event) {
     document.addEventListener("mouseup", onLineDrop, true);
   }
 }
+// called by mousemoves after mousedown
 function onLineMove(event) {
   SELECTED_LINE.updateCoordenates(event);
   updateCanvas();
 }
+// called by a mouseup after mousedown
 function onLineDrop() {
   CANVAS.style.cursor = "pointer";
   SELECTED_LINE = null;
@@ -43,6 +46,7 @@ function onLineDrop() {
 // ==================  DIVIDE LINE IN 2 ========================================
 var LINE_DIV1, LINE_DIV2;
 
+// called by contextmenu
 function onRightClick(event) {
   event.preventDefault();
   SELECTED_LINE = getLineUnderCursor(event);
@@ -70,6 +74,7 @@ function onRightClick(event) {
   }
 }
 
+// called by mousemoves after contextmenu
 function onLineBreaking(event) {
   LINE_DIV1.updateCoordenates(event);
   LINE_DIV1.paint("blue");
@@ -77,13 +82,14 @@ function onLineBreaking(event) {
   LINE_DIV2.paint("blue");
   updateCanvas();
 }
-
+// called by a mouseup after contextmenu
 function onLineBreakingStop() {
   document.removeEventListener("mouseup", onLineBreakingStop, true);
   document.removeEventListener("mousemove", onLineBreaking, true);
 }
 // ==================  END of DIVIDE LINE IN 2 =================================
 
+// called by mousemoves
 function getLineUnderCursor(event) {
   for (let i = 0; i < LINES.length; i++) {
     if (LINES[i].mouseMatch(event)) {
@@ -106,12 +112,6 @@ function initCanvas() {
   CTX.lineCap = "round";
 }
 
-function addInitialLine() {
-  const middle_h = CANVAS.height / 2;
-  const middle_w = CANVAS.width / 2;
-  LINES.push(new Line(middle_w, middle_h - 100, middle_w, middle_h + 100));
-}
-
 function validatePolygonNumber() {
   const v = document.getElementById("nPolygon").value;
   if (!v) {
@@ -125,9 +125,23 @@ function validatePolygonNumber() {
   return true;
 }
 
-function generatePolygon() {
+// adaptado de http://www.scienceprimer.com/drawing-regular-polygons-javascript-canvas
+function generatePolygon(event) {
+  event.preventDefault();
   if (!validatePolygonNumber()) {
     return;
   }
-  const N = document.getElementById("nPolygon").value;
+  var N = document.getElementById("nPolygon").value;
+  var lineSize = 60,
+    Xcenter = CANVAS.width / 2,
+    Ycenter = CANVAS.height / 2;
+  for (var i = 1; i <= N; i += 1) {
+    let x0 = Xcenter + lineSize * Math.cos(((i - 1) * 2 * Math.PI) / N);
+    let y0 = Ycenter + lineSize * Math.sin(((i - 1) * 2 * Math.PI) / N);
+    let x1 = Xcenter + lineSize * Math.cos((i * 2 * Math.PI) / N);
+    let y1 = Ycenter + lineSize * Math.sin((i * 2 * Math.PI) / N);
+    const lado = new Line(x0, y0, x1, y1);
+    LINES.push(lado);
+  }
+  updateCanvas();
 }
