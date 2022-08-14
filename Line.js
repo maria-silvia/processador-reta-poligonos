@@ -1,10 +1,19 @@
 class Line {
   constructor(x0, y0, x1, y1) {
+    // line edges
     this.x0 = x0;
     this.y0 = y0;
     this.x1 = x1;
     this.y1 = y1;
+    this.path_obj;
     this.color = DEFAULT_COLOR;
+    // mouse distance from edges and flags, used when selected
+    this.dist_from_x0;
+    this.dist_from_y0;
+    this.dist_from_x1;
+    this.dist_from_y1;
+    this.cursorOnEdge0;
+    this.cursorOnEdge1;
   }
 
   draw() {
