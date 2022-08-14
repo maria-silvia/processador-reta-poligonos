@@ -1,3 +1,8 @@
+:root {
+    --strong-purple: rgba(148, 55, 171,1);
+        --purple: rgba(148, 55, 171, 0.75);
+    --light-purple: rgba(148, 55, 171, 0.18);
+}
 html,
 body {
     margin: 0px;
@@ -11,12 +16,11 @@ main {
     margin-left: auto;
     margin-right: auto;
     padding: 10px 30px;
-    height: 1000px;
     max-width: 700px;
 }
 main h1 {
     text-align: center;
-    color: rgba(148, 55, 171, 0.75);
+    color: var(--main-purple);
 }
 p {
     max-width: 75ch;
@@ -29,7 +33,24 @@ canvas {
     
     margin-top: 50px;
     
-    outline: 7px dotted rgba(148, 55, 171, 0.18);
+    outline: 7px dotted var(--light-purple);
     outline-offset: 7px;
     border-radius: 40px 40px 40px 40px;
+}
+
+form {
+    text-align: center;
+    margin-top: 40px;
+}
+
+input { 
+    width: 25px;
+    height: 25px;
+    font-weight: bold;
+    font-family: inherit;
+    border-radius: 50%;
+    font-size: 16px;
+    color: var(--strong-purple);
+    text-align: center;
+    background-color: antiquewhite;
 }
