@@ -19,7 +19,7 @@ function updateCanvas() {
 }
 
 function onMouseDown(event) {
-  SELECTED_LINE = getSelectedLine(event);
+  SELECTED_LINE = getLineUnderCursor(event);
   if (SELECTED_LINE) {
     CANVAS.style.cursor = "move";
     SELECTED_LINE.setGrabberOffset(event);
@@ -39,26 +39,20 @@ function dropper(event) {
   CANVAS.style.cursor = "pointer";
 }
 
-function getSelectedLine(evt) {
+function getLineUnderCursor(event) {
   for (let i = 0; i < LINES.length; i++) {
-    if (CTX.isPointInStroke(LINES[i].path_obj, evt.offsetX, evt.offsetY)) {
+    if (LINES[i].mouseMatch(event)) {
+      LINES[i].paint("blue");
+      if (CANVAS.style.cursor != "move") {
+        CANVAS.style.cursor = "pointer";
+      }
       return LINES[i];
+    } else {
+      LINES[i].paint(DEFAULT_COLOR);
+      CANVAS.style.cursor = "initial";
     }
   }
   return null;
-}
-
-function showGrabbableArea(event) {
-  if (CTX.isPointInStroke(LINES[0].path_obj, event.offsetX, event.offsetY)) {
-    CTX.strokeStyle = "blue";
-    if (CANVAS.style.cursor != "move") {
-      CANVAS.style.cursor = "pointer";
-    }
-  } else {
-    CTX.strokeStyle = DEFAULT_COLOR;
-    CANVAS.style.cursor = "initial";
-  }
-  CTX.stroke(LINES[0].path_obj);
 }
 
 function initCanvas() {

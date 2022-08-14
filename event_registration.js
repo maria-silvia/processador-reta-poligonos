@@ -4,4 +4,4 @@
 document.getElementById("canvas").addEventListener("mousedown", onMouseDown);
 document
   .getElementById("canvas")
-  .addEventListener("mousemove", showGrabbableArea);
+  .addEventListener("mousemove", getLineUnderCursor);
