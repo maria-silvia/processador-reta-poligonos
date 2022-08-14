@@ -1,3 +1,4 @@
+var EDGE_RADIUS = 10;
 var CANVAS;
 var CTX;
 var LINES = [];
@@ -28,10 +29,6 @@ function onMouseDown(event) {
   SELECTED_LINE = getSelectedLine(event);
   if (SELECTED_LINE) {
     SELECTED_LINE.setGrabberOffset(event);
-    // if (SELECTED_LINE.grabbedByEdge)
-    // if (offset.x0 < 5 && offset.y0 < 5) || (offset.x1 < 5 && offset.y1 < 5)
-    // eh canto
-    // else
     CANVAS.style.cursor = "move";
     document.addEventListener("mousemove", onLineMove, true);
     document.addEventListener("mouseup", dropper, true);
