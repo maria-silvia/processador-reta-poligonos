@@ -1,5 +1,13 @@
 # processador-reta-poligonos
 
+A canvas that handles lines and generates polygons.  
+Assignment for Web Development class.  
+<img src="https://user-images.githubusercontent.com/57308135/185019131-a99e4a6d-a8dc-4128-877c-7b6f66fef884.gif" width="600" height="300"/>
+
+______ 
+
+
+### enunciado    
 Alterar formato e posição de retas e de polígonos criados no canvas de html5
 
 Trabalho 3 de CI1010 - Programação Web
